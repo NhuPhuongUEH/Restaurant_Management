@@ -1,0 +1,14 @@
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\bin\Debug\netcoreapp2.2\SpyRestaurant.deps.json
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\bin\Debug\netcoreapp2.2\SpyRestaurant.runtimeconfig.json
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\bin\Debug\netcoreapp2.2\SpyRestaurant.runtimeconfig.dev.json
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\bin\Debug\netcoreapp2.2\SpyRestaurant.dll
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.csprojAssemblyReference.cache
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.csproj.CoreCompileInputs.cache
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.RazorAssemblyInfo.cache
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.RazorAssemblyInfo.cs
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.AssemblyInfoInputs.cache
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.AssemblyInfo.cs
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.RazorTargetAssemblyInfo.cache
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\bin\Debug\netcoreapp2.2\SpyRestaurant.pdb
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.dll
+D:\Restaurant_Management\SpyRestaurant\SpyRestaurant\obj\Debug\netcoreapp2.2\SpyRestaurant.pdb

@@ -18,6 +18,7 @@ import * as more from 'highcharts/highcharts-more.src';
 import { NhaCungCapComponent } from './dashboard/nha-cung-cap/nha-cung-cap.component';
 import { PhieuNhapComponent } from './dashboard/phieu-nhap/phieu-nhap.component';
 import { PhieuXuatComponent } from './dashboard/phieu-xuat/phieu-xuat.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { PhieuXuatComponent } from './dashboard/phieu-xuat/phieu-xuat.component'
     FormsModule,
     HttpClientModule,
     CKEditorModule,
-    ChartModule
+    ChartModule,
+    ModalModule.forRoot()
   ],
   providers: [
     { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] } // add as factory to your providers

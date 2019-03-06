@@ -10,7 +10,10 @@ export class ApiService {
     monan : this.baseUrl + 'monan',
     loaimonan : this.baseUrl + 'loaimonan',
     hoadon : this.baseUrl + 'hoadon',
-    chitiethoadon : this.baseUrl + 'chitiethoadon'
+    chitiethoadon : this.baseUrl + 'chitiethoadon',
+    congthuc: this.baseUrl + 'thanhphanmonan',
+    congthucmonan: this.baseUrl + 'thanhphanmonan/monan',
+    tinhtrangmonan: this.baseUrl + 'monan/tinhtrang'
   };
   constructor() { }
 }

@@ -48,23 +48,14 @@
           </thead>
           <tbody>
             <!-- <tr data-toggle="modal" data-target="#modal-detai" onclick="thongtinsp(132,'/assets/images/1.png')"> -->
-            <tr data-toggle="modal" data-target="#modal-detai" onclick="thongtinsp(123,'/assets/images/sanpham/7up.jpg')">
-              <td class="table_hinh d-none">1</td>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td class="table_status d-none">1</td>
-            </tr>
-            <tr data-toggle="modal" data-target="#modal-detai" onclick="thongtinsp(456,'/assets/images/sanpham/banhcanhcua.jpg')">
-              <td class="table_hinh d-none">1</td>
-              <td>2</td>
-              <td>4</td>
-              <td>6</td>
-              <td>6</td>
-              <td>5</td>
-              <td class="table_status d-none">1</td>
+            <tr *ngFor="let sanpham of sanphams; let i=index" (click)="clickdetail(sanpham.id)" (click)="modalDetail.show()">
+              <td>{{i+1}}</td>
+              <td class="table_hinh d-none"><img src="{{sanpham.hinh}}" style="width: 100px;" alt=""></td>
+              <td class="table_masp d-none">{{sanpham.id}}</td>
+              <td>{{sanpham.tenmon}}</td>
+              <td>{{sanpham.gia}}</td>
+              <td>{{sanpham.loaiMonAn.tenloai}}</td>
+              <td class="table_status d-none">{{sanpham.trangthai}}</td>
             </tr>
           </tbody>
         </table>
@@ -88,19 +79,81 @@
         </nav>
 
         <!-- modal chi tiết -->
-        <div class="modal fade" id="modal-detai" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div bsModal #modalDetail="bs-modal" class="modal fade" id="modal-detai" tabindex="-1" role="dialog"
+        aria-labelledby="modelTitleId" aria-hidden="true">
           <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Chi tiết sản phẩm</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalDetail.hide()">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <div id='modaldetail'>
-
-                </div>
+                  <div class="h3 text-primary" *ngIf="detail!=null">Sản phẩm {{detail.tenmon}}</div>
+                  <div class="row">
+                      <div class="col-sm-3">
+                          <img *ngIf="detail!=null" src="{{detail.hinh}}" class="img-fluid w-100" alt="" data-toggle="modal" data-target="#modal-loadhinh" >
+                      </div>
+                      <div class="col-sm-4">
+                          <table class="table">
+                              <tbody>
+                                  <tr>
+                                      <td>Mã món ăn:</td>
+                                      <td><strong *ngIf="detail!=null">{{detail.id}}</strong></td>
+                                  </tr>
+                                  <tr>
+                                      <td>Tên món ăn:</td>
+                                      <td><strong *ngIf="detail!=null">Sản phẩm {{detail.tenmon}}</strong></td>
+                                  </tr>
+                                  <tr>
+                                      <td>Loại món ăn:</td>
+                                      <td><strong *ngIf="detail!=null">{{detail.loaiMonAn.tenloai}}</strong></td>
+                                  </tr>
+                                  
+                                  <tr>
+                                      <td>Giá bán:</td>
+                                      <td><strong *ngIf="detail!=null">{{(detail.gia).toLocaleString('en-GB')}}</strong></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      <div class="col-sm-5">
+                          <table class="table">
+                              <tbody>
+                                  <tr>
+                                      <td>Tình trạng:</td>
+                                      <td><strong *ngIf="detail!=null">{{detail.trangthai}}</strong></td>
+                                  </tr>
+                                  <tr>
+                                      <td>Mô tả:</td>
+                                      <td *ngIf="detail!=null">{{detail.mota}}</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="row float-right form-inline">
+                      <ul class="nav nav-pills nav-fill m-3">
+                              <li class="nav-item" id="btn_capnhat" data-dismiss="modal" data-toggle="modal" data-target="#modal-update">
+                                  <a class="nav-link btn btn-success btn-lg mx-2 mt-2" href="#" 
+                                      ><i class="fa fa-check-circle-o"></i> Cập nhật</a>
+                              </li>
+                              <li class="nav-item" *ngIf="detail!=null">
+                                  <ng-container *ngIf="detail.trangthai === 'ngừng kinh doanh'; else elseTemplate">
+                                      <a class="nav-link btn btn-success btn-lg mx-2 mt-2" id="btn-tinhtrang" href="#" (click)="updateTrangThai($event, detail.id)"><i
+                                          class="fa fa-lock"></i> Kinh doanh</a>
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                      <a class="nav-link btn btn-danger btn-lg mx-2 mt-2" id="btn-tinhtrang" href="#" (click)="updateTrangThai($event, detail.id)"><i
+                                          class="fa fa-lock"></i> Ngừng kinh doanh</a>
+                                    </ng-template>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link btn btn-primary btn-lg mx-2 mt-2" href="#" (click)="delConfirm($event)"><i class=" fa fa-trash-o"></i> Xóa</a>
+                              </li>
+                          </ul>
+                  </div>
               </div>
 
               <div class="modal-footer">
@@ -114,6 +167,24 @@
           </div>
         </div>
 
+        <!--Madal xác nhận xóa-->
+        <div bsModal #modalcomfirm="bs-modal" class="modal fade" id="modelId" tabindex="-1" role="dialog"
+          aria-labelledby="modelTitleId" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="close" (click)="modalcomfirm.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modalcomfirm.hide()">Close</button>
+                <button type="button" class="btn btn-primary" (click)="deleteMonAn(detail.id)">Xác nhận</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- modal thêm mới -->
         <div class="modal fade" id="modal-add-new" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"

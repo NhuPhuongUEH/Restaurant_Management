@@ -32,6 +32,7 @@ namespace SpyRestaurant.Controllers
         {
             return await _context.MonAns.Where(x => x.trangthai != "xóa").Select(x => new MonAn {
                 Id = x.Id,
+                hinh = Models.Unit.Helper.getUrl(Request) + x.hinh,
                 gia = x.gia,
                 tenmon = x.tenmon,
                 mota = x.mota,
@@ -51,7 +52,7 @@ namespace SpyRestaurant.Controllers
             {
                 return NotFound();
             }
-
+            monAn.hinh = Models.Unit.Helper.getUrl(Request) + monAn.hinh;
             return monAn;
         }
 
@@ -84,11 +85,7 @@ namespace SpyRestaurant.Controllers
             {
                 return BadRequest();
             }
-            monan.tenmon = monAn.tenmonan;
-            monan.gia = monAn.dongia;
-            monan.trangthai = monAn.trangthai;
-            monan.mota = monAn.mota;
-            monan.LoaiMonAn_ID = monAn.loaimonan_id;
+            
             if (monAn.File != null)
             {
                 var uploadFilePath = Path.Combine(_hostingEnviroment.WebRootPath, "Data\\sanpham");
@@ -101,19 +98,26 @@ namespace SpyRestaurant.Controllers
                 string newFileName = id + "_" + monAn.File.FileName;
                 //lấy đường dẫn file mới
                 string path = _hostingEnviroment.WebRootPath + "\\Data\\sanpham\\" + newFileName;
-                if (monan.hinh != "" || monan.hinh != null)
+                //luu file moi
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    monAn.File.CopyTo(stream);
+                    monan.hinh = newFileName;
+                }
+                //xoa file cu
+                if (monan.hinh != "")
                 {
                     if (System.IO.File.Exists(oldImageName))
                     {
                         System.IO.File.Delete(oldImageName);
                     }
                 }
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    monAn.File.CopyTo(stream);
-                    monan.hinh = newFileName;
-                }
             }
+            monan.tenmon = monAn.tenmonan;
+            monan.gia = monAn.dongia;
+            monan.trangthai = monAn.trangthai;
+            monan.mota = monAn.mota;
+            monan.LoaiMonAn_ID = monAn.loaimonan_id;
             _context.SaveChanges();
             return new BaseRespone()
             {

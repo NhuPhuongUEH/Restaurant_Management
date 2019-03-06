@@ -67,30 +67,15 @@ namespace SpyRestaurant.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHoaDon(int id, HoaDon hoaDon)
         {
-            if (id != hoaDon.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(hoaDon).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HoaDonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var hd = await _context.HoaDons.FindAsync(id);
+            if (hd == null)
+                return NotFound();
+            hd.ghichu = hoaDon.ghichu;
+            hd.NhanVien_ID = hoaDon.NhanVien_ID;
+            hd.trangthai = hoaDon.trangthai;
+            _context.HoaDons.Update(hd);
+            await _context.SaveChangesAsync();
+            return Ok(hd);
         }
 
         // POST: api/HoaDon

@@ -11,9 +11,11 @@ export class ApiService {
     loaimonan : this.baseUrl + 'loaimonan',
     hoadon : this.baseUrl + 'hoadon',
     chitiethoadon : this.baseUrl + 'chitiethoadon',
-    congthuc: this.baseUrl + 'thanhphanmonan',
-    congthucmonan: this.baseUrl + 'thanhphanmonan/monan',
-    tinhtrangmonan: this.baseUrl + 'monan/tinhtrang'
+    congthuc: this.baseUrl + 'thanhphanmonan/',
+    congthucmonan: this.baseUrl + 'thanhphanmonan/monan/',
+    tinhtrangmonan: this.baseUrl + 'monan/tinhtrang',
+    timnguyenlieu: this.baseUrl + 'nguyenlieu/tim?q=',
+    timmonan: this.baseUrl + 'monan/tim?q=',
   };
   constructor() { }
 }

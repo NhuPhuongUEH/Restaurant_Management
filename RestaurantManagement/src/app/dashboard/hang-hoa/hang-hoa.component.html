@@ -53,7 +53,7 @@
               <td class="table_hinh d-none"><img src="{{sanpham.hinh}}" style="width: 100px;" alt=""></td>
               <td class="table_masp d-none">{{sanpham.id}}</td>
               <td>{{sanpham.tenmon}}</td>
-              <td>{{sanpham.gia}}</td>
+              <td>{{(sanpham.gia).toLocaleString('en-GB')}}</td>
               <td>{{sanpham.loaiMonAn.tenloai}}</td>
               <td class="table_status d-none">{{sanpham.trangthai}}</td>
             </tr>
@@ -159,8 +159,8 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Thêm</button>
                 <button type="button" class="btn btn-info" data-dismiss="modal" id="btn_cong_thuc" data-toggle="modal"
-                  data-target="#modal-thanhphan">Thành phần</button>
-                <button type="button" class="btn btn-secondary" id="btn_close_detai" data-dismiss="modal">Đóng</button>
+                  data-target="#modal-thanhphan" (click)="getThanhPhan(tp_idmonan)">Thành phần</button>
+                <button type="button" class="btn btn-secondary" id="btn_close_detai" data-dismiss="modal" (click)="modalDetail.hide()">Đóng</button>
 
               </div>
             </div>
@@ -290,30 +290,29 @@
               </div>
               <div class="modal-body">
                 <div class="input-group">
-                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" required>
-                  <button class="btn btn-outline-success" type="button" id="btn_tp_search" onclick="timthanhphan()"><i
+                  <input class="form-control" [(ngModel)]="id_tukhoa" type="search" placeholder="Search" aria-label="Search" required>
+                  <button class="btn btn-outline-success" type="button" id="btn_tp_search" (click)="timNguyenLieu(id_tukhoa)"><i
                       class="fa fa-search"></i>
                     Tìm</button>
                 </div>
                 <label for="">Thành phần:</label>
-                <select class="custom-select form-control-lg" size="5" id="sl_tp_up">
-
+                <select class="custom-select form-control-lg" size="5" id="sl_tp_up" [(ngModel)]="sl_tp_up">
+                  <option *ngFor="let row of nguyenlieus" value="{{row.id}}">{{row.tennguyenlieu}}: ({{row.donvi}})</option>
                 </select>
 
                 <div class="my-3 row justify-content-center">
 
-                  <input class="form-control w-25" id="tp_soluong" type="number" value="0">
-                  <button class="btn btn-outline-success" id="btn_tp_down" type="button" onclick="return uptodown()"><i
+                  <input class="form-control w-25" id="tp_soluong" type="number" value="0" [(ngModel)]="ip_tp_soluong">
+                  <button class="btn btn-outline-success" id="btn_tp_down" type="button" (click)="thanhphan_uptodown()"><i
                       class="fa fa-angle-down"></i></button>
-                  <button class="btn btn-outline-success" id="btn_tp_up" type="button" onclick="return downtoup()"><i
+                  <button class="btn btn-outline-success" id="btn_tp_up" type="button" (click)="thanhphan_downtoup()"><i
                       class="fa fa-angle-up"></i></button>
 
                 </div>
                 <label for="">Thành phần hiện tại:</label>
-                <select class="custom-select form-control-lg" size="5" id="sl_tp_down">
-                  <option value="4">D: 500(gr)</option>
-                  <option value="5">E: 500(gr)</option>
-                  <option value="6">F: 500(gr)</option>
+                <select class="custom-select form-control-lg" size="5" id="sl_tp_down" [(ngModel)]="sl_tp_down">
+                  <option *ngFor="let row of thanhphans" value="{{row.id}}">{{row.nguyenLieu.tennguyenlieu}}:
+                    {{row.soluong}} ({{row.nguyenLieu.donvi}})</option>
                 </select>
 
               </div>

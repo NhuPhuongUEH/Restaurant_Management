@@ -27,6 +27,11 @@ namespace SpyRestaurant.Controllers
             return await _context.NguyenLieus.ToListAsync();
         }
 
+        [HttpGet("tim")]
+        public async Task<ActionResult<IEnumerable<NguyenLieu>>> TimNguyenLieu([FromQuery] string q)
+        {
+            return await _context.NguyenLieus.Where(x => x.tennguyenlieu.Contains(q)).ToListAsync();
+        }
         // GET: api/NguyenLieu/5
         [HttpGet("{id}")]
         public async Task<ActionResult<NguyenLieu>> GetNguyenLieu(int id)

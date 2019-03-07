@@ -83,7 +83,7 @@ namespace SpyRestaurant.Controllers
             var tp = await _context.ThanhPhanMonAns.Where(x => x.MonAn_ID == thanhPhanMonAn.MonAn_ID && x.NguyenLieu_ID == thanhPhanMonAn.NguyenLieu_ID).FirstOrDefaultAsync();
             if (tp == null)
             {
-                _context.ThanhPhanMonAns.Add(tp);
+                _context.ThanhPhanMonAns.Add(thanhPhanMonAn);
             }
             else
             {

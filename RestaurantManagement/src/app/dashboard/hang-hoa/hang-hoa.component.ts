@@ -94,4 +94,42 @@ export class HangHoaComponent implements OnInit {
     this.modalDetail.hide();
     this.modalcomfirm.show();
   }
+  getThanhPhan(id) {
+    this.monanService.getThanhPhanHienTai(id).subscribe(result => {
+      this.thanhphans = result;
+    });
+  }
+  timNguyenLieu(query) {
+    this.monanService.TimNguyenLieu(query).subscribe(result => {
+      this.nguyenlieus = result;
+    });
+  }
+  thanhphan_uptodown() {
+    if (this.sl_tp_up === undefined) {
+      alert('chưa chọn nguyên liệu');
+      return;
+    }
+    if (this.ip_tp_soluong === undefined || this.ip_tp_soluong === null || this.ip_tp_soluong === 0) {
+      alert('Số lượng nguyên liệu không hợp lệ');
+      return;
+    }
+    const param = {
+      "soluong": this.ip_tp_soluong,
+      "nguyenLieu_ID": this.sl_tp_up,
+      "monAn_ID": this.tp_idmonan,
+    };
+    this.monanService.ThemThanhPhan(param).subscribe(result => {
+      console.log(result);
+      this.getThanhPhan(this.tp_idmonan);
+    });
+  }
+  thanhphan_downtoup() {
+    if (this.sl_tp_down === undefined) {
+      alert('Chưa chọn nguyên liệu');
+      return;
+    }
+    this.monanService.XoaThanhPhan(this.sl_tp_down).subscribe(result => {
+      this.getThanhPhan(this.tp_idmonan);
+    });
+  }
 }

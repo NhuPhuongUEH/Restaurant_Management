@@ -47,4 +47,19 @@ export class HangHoaService {
   public updateTinhTrangMonAn(param, id): Observable<MonAnInfo> {
     return this.http.put<MonAnInfo>(this.api.apiUrl.tinhtrangmonan + '/' + id, param);
   }
+  public getThanhPhanHienTai(id_monan): Observable<ThanhPhan> {
+    return this.http.get<ThanhPhan>(this.api.apiUrl.congthucmonan + id_monan);
+  }
+  public TimNguyenLieu(q): Observable<NguyenLieu[]> {
+    return this.http.get<NguyenLieu[]>(this.api.apiUrl.timnguyenlieu + q);
+  }
+  public TimMonAn(query): Observable<ListMonAn> {
+    return this.http.get<ListMonAn>(this.api.apiUrl.timmonan + query);
+  }
+  public XoaThanhPhan(id): Observable<ThanhPhan> {
+    return this.http.delete<ThanhPhan>(this.api.apiUrl.congthuc + id);
+  }
+  public ThemThanhPhan(param): Observable<ThanhPhan> {
+    return this.http.post<ThanhPhan>(this.api.apiUrl.congthuc, param);
+  }
 }

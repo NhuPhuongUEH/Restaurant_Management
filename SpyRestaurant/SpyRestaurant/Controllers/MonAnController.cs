@@ -98,12 +98,6 @@ namespace SpyRestaurant.Controllers
                 string newFileName = id + "_" + monAn.File.FileName;
                 //lấy đường dẫn file mới
                 string path = _hostingEnviroment.WebRootPath + "\\Data\\sanpham\\" + newFileName;
-                //luu file moi
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    monAn.File.CopyTo(stream);
-                    monan.hinh = newFileName;
-                }
                 //xoa file cu
                 if (monan.hinh != "")
                 {
@@ -111,6 +105,12 @@ namespace SpyRestaurant.Controllers
                     {
                         System.IO.File.Delete(oldImageName);
                     }
+                }
+                //luu file moi
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    monAn.File.CopyTo(stream);
+                    monan.hinh = newFileName;
                 }
             }
             monan.tenmon = monAn.tenmonan;
@@ -137,7 +137,7 @@ namespace SpyRestaurant.Controllers
                 if (file != null)
                 {
                     string newFileName = monAn.Id + "_" + file.FileName;
-                    string path = _hostingEnviroment.WebRootPath + "\\Data\\sanpham" + newFileName;
+                    string path = _hostingEnviroment.WebRootPath + "\\Data\\sanpham\\" + newFileName;
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         file.CopyTo(stream);

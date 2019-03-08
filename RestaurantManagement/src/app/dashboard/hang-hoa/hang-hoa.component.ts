@@ -23,8 +23,10 @@ export class HangHoaComponent implements OnInit {
   ip_tp_soluong: number;
   id_monan: number;
   trangthai: string;
+  @ViewChild('modalAddNew') modalAddNew: ModalDirective;
   @ViewChild('modalDetail') modalDetail: ModalDirective;
   @ViewChild('modalcomfirm') modalcomfirm: ModalDirective;
+  @ViewChild('modalUpdate') modalUpdate: ModalDirective;
   constructor(private titleService: Title, private monanService: HangHoaService) { }
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class HangHoaComponent implements OnInit {
       this.tp_idmonan = result.id;
       this.detail = result;
     });
+    this.modalDetail.show();
   }
   updateTrangThai(event, id) {
     event.preventDefault();
@@ -130,6 +133,77 @@ export class HangHoaComponent implements OnInit {
     }
     this.monanService.XoaThanhPhan(this.sl_tp_down).subscribe(result => {
       this.getThanhPhan(this.tp_idmonan);
+    });
+  }
+  getAllLoai() {
+    this.modalAddNew.show();
+    this.monanService.getAllLoaiMonAn().subscribe(result => {
+      this.loaimonans = result;
+    });
+  }
+  themMonAn() {
+    const formData: FormData = new FormData();
+    formData.append('tenmon', this.sanphammoi.tenmon);
+    formData.append('gia', this.sanphammoi.gia.toString());
+    formData.append('file', this.sanphammoi.hinh);
+    formData.append('trangthai', this.sanphammoi.trangthai);
+    formData.append('mota', this.cke_them);
+    formData.append('loaiMonAn_ID', this.sanphammoi.loaiMonAn_ID.toString());
+    this.monanService.addnewMonAn(formData).subscribe(result => {
+      if (result['errorCode'] === 1) {
+        alert('Lỗi');
+        return;
+      }
+      this.loadData();
+      this.modalAddNew.hide();
+      alert('Thêm thành công');
+    });
+  }
+  handleUpload(event) {
+    this.sanphammoi.hinh = event.target.files[0];
+  }
+
+  showCapNhat() {
+    this.monanService.getAllLoaiMonAn().subscribe(result => {
+      this.loaimonans = result;
+    });
+    this.sanphamupdate.id = this.detail.id;
+    this.sanphamupdate.tenmon = this.detail.tenmon;
+    this.sanphamupdate.gia = this.detail.gia;
+    this.sanphamupdate.loaiMonAn_ID = this.detail.loaiMonAn_ID;
+    this.sanphamupdate.hinh = this.detail.hinh;
+    this.sanphamupdate.trangthai = this.detail.trangthai;
+    this.sanphamupdate.mota = this.detail.mota;
+    this.sanphamupdate.loaiMonAn_ID = this.detail.loaiMonAn_ID;
+    this.cke_them = this.detail.mota;
+    this.modalDetail.hide();
+    this.modalUpdate.show();
+  }
+  // tslint:disable-next-line: member-ordering
+  imageUpdate: File = null;
+  handleUploadUpdate(event) {
+    this.imageUpdate = event.target.files[0];
+    this.sanphamupdate.hinh = this.imageUpdate.name;
+  }
+  capNhatHangHoa() {
+    const formData: FormData = new FormData();
+
+    formData.append('tenmonan', this.sanphamupdate.tenmon);
+    formData.append('dongia', this.sanphamupdate.gia.toString());
+    formData.append('hinh', this.sanphamupdate.hinh);
+    formData.append('trangthai', this.sanphamupdate.trangthai);
+    formData.append('mota', this.cke_them);
+    formData.append('loaiMonAn_ID', this.sanphamupdate.loaiMonAn_ID.toString());
+    formData.append('File', this.imageUpdate);
+
+    this.monanService.updateMonAn(this.sanphamupdate.id, formData).subscribe(result => {
+      if (result['errorCode'] === 0) {
+        this.loadData();
+        alert('Thành công!');
+        this.modalUpdate.hide();
+      } else {
+        alert("Có lỗi xảy ra");
+      }
     });
   }
 }

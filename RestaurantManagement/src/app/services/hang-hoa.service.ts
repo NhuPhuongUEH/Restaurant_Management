@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MonAn } from './hoa-don.service';
 export interface MonAnInfo {
   id: number;
   tenmon: string;
@@ -61,5 +62,15 @@ export class HangHoaService {
   }
   public ThemThanhPhan(param): Observable<ThanhPhan> {
     return this.http.post<ThanhPhan>(this.api.apiUrl.congthuc, param);
+  }
+  public getAllLoaiMonAn(): Observable<ListLoaiMonAn> {
+    return this.http.get<ListLoaiMonAn>(this.api.apiUrl.loaimonan);
+  }
+  public addnewMonAn(param): Observable<MonAnInfo> {
+    console.log(param);
+    return this.http.post<MonAnInfo>(this.api.apiUrl.monan, param);
+  }
+  public updateMonAn(id: number, param): Observable<MonAnInfo> {
+    return this.http.put<MonAnInfo>(this.api.apiUrl.monan + '/' + id, param);
   }
 }

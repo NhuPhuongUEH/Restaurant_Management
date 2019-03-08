@@ -3186,7 +3186,7 @@ input.hoa-don
 }
 
 .modal {
-    overflow-y:auto;
+    overflow-y:auto !important;
   }
 
   .modal-full {

@@ -92,4 +92,7 @@ export class HoaDonService {
   public deleteChiTiet(id) {
     return this.http.delete(this.api.apiUrl.chitiethoadon + '/' + id);
   }
+  public updateTinhTrang(id, param): Observable<HoaDonInfo> {
+    return this.http.put<HoaDonInfo>(this.api.apiUrl.tinhtranghoadon + '/' + id, param);
+  }
 }

@@ -153,10 +153,11 @@ export class HangHoaComponent implements OnInit {
       if (result['errorCode'] === 1) {
         alert('Lỗi');
         return;
+      } else {
+        this.loadData();
+        alert('Thêm thành công');
+        this.modalAddNew.hide();
       }
-      this.loadData();
-      this.modalAddNew.hide();
-      alert('Thêm thành công');
     });
   }
   handleUpload(event) {

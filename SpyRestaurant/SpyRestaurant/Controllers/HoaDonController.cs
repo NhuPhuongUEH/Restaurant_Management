@@ -77,6 +77,18 @@ namespace SpyRestaurant.Controllers
             await _context.SaveChangesAsync();
             return Ok(hd);
         }
+        // PUT: api/HoaDon/tinhtrang/5
+        [HttpPut("tinhtrang/{id}")]
+        public async Task<IActionResult> PutTinhTrangHoaDon(int id, HoaDon hoaDon)
+        {
+            var hd = await _context.HoaDons.FindAsync(id);
+            if (hd == null)
+                return NotFound();
+            hd.trangthai = hoaDon.trangthai;
+            _context.HoaDons.Update(hd);
+            await _context.SaveChangesAsync();
+            return Ok(hd);
+        }
 
         // POST: api/HoaDon
         [HttpPost]

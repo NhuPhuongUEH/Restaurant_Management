@@ -114,11 +114,11 @@
                                 <hr/>
                                 <div class="text-right mb-3">Tổng tiền: <strong>{{(tongtienHD).toLocaleString('en-GB')}} VNĐ</strong></div>
                                 <ul class="nav nav-pills nav-fill m-3">
-                                    <li class="nav-item disabled" id='btn_thanhtoan' (click)="showThanhtoan()">
-                                        <a class="nav-link btn btn-success btn-lg mx-2 mt-2 text-white">Thanh Toán</a>
+                                    <li class="nav-item "  (click)="showThanhtoan()">
+                                        <a class="nav-link btn btn-success btn-lg mx-2 mt-2 text-white disabled" id="btn_thanhtoan">Thanh Toán</a>
                                     </li>
-                                    <li class="nav-item disabled" id="btn_daphucvu" (click)="showNgungphucvu()">
-                                        <a class="nav-link btn btn-danger btn-lg mx-2 mt-2 text-white">Đã phục vụ xong</a>
+                                    <li class="nav-item "  (click)="showNgungphucvu()">
+                                        <a class="nav-link btn btn-danger btn-lg mx-2 mt-2 text-white disabled" id="btn_daphucvu">Đã phục vụ xong</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link btn btn-primary btn-lg mx-2 mt-2 text-white">Tách ghép đơn</a>

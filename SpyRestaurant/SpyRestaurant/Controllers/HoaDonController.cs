@@ -49,7 +49,7 @@ namespace SpyRestaurant.Controllers
 
             if (hoaDon == null)
             {
-                return NotFound();
+                return new HoaDon { Id = 0 };
             }
 
             return hoaDon;

@@ -16,6 +16,8 @@ export class ApiService {
     tinhtrangmonan: this.baseUrl + 'monan/tinhtrang',
     timnguyenlieu: this.baseUrl + 'nguyenlieu/tim?q=',
     timmonan: this.baseUrl + 'monan/tim?q=',
+    ban: this.baseUrl + 'ban',
+    timhoadon_phucvu: this.baseUrl + 'ban/hoadon',
   };
   constructor() { }
 }

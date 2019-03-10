@@ -83,4 +83,13 @@ export class HoaDonService {
   public getIdHoaDon(id): Observable<HoaDonInfo> {
     return this.http.get<HoaDonInfo>(this.api.apiUrl.hoadon + '/' +  id);
   }
+  public themHoaDon(param): Observable<HoaDonInfo> {
+    return this.http.post<HoaDonInfo>(this.api.apiUrl.hoadon, param);
+  }
+  public updateThanhToan(id, param) {
+    return this.http.put(this.api.apiUrl.hoadon + '/' + id, param);
+  }
+  public deleteChiTiet(id) {
+    return this.http.delete(this.api.apiUrl.chitiethoadon + '/' + id);
+  }
 }

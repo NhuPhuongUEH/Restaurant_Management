@@ -115,7 +115,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>Mã món ăn</th>
-                                                            <th>Tên món ăn/th>
+                                                            <th>Tên món ăn</th>
                                                             <th>Số lượng</th>
                                                             <th>Đơn giá</th>
                                                             <th>Thành tiền</th>
@@ -124,7 +124,7 @@
                                                     <tbody>
                                                         <tr *ngFor="let row of detail">
                                                             <td>{{row.id}}</td>
-                                                            <td>{{row.monAn.temon}}</td>
+                                                            <td>{{row.monAn.tenmon}}</td>
                                                             <td>{{row.soluong}}</td>
                                                             <td>{{(row.dongia).toLocaleString('en-GB')}}</td>
                                                             <td>{{(row.soluong * row.dongia).toLocaleString('en-GB')}}</td>

@@ -42,6 +42,9 @@ export class HangHoaService {
   public getAllMonAn(): Observable<ListMonAn> {
     return this.http.get<ListMonAn>(this.api.apiUrl.monan);
   }
+  public getAllMonAnBanHang(): Observable<ListMonAn> {
+    return this.http.get<ListMonAn>(this.api.apiUrl.banhang);
+  }
   public getChiTietMonAn(id): Observable<MonAnInfo> {
     return this.http.get<MonAnInfo>(this.api.apiUrl.monan + '/' + id);
   }

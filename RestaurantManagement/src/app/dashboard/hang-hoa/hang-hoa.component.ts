@@ -47,15 +47,14 @@ export class HangHoaComponent implements OnInit {
   }
   updateTrangThai(event, id) {
     event.preventDefault();
-    this.monanService.getChiTietMonAn(id).subscribe(result => {
-      this.id_monan = result.id;
-      this.trangthai = result.trangthai;
+    this.monanService.getChiTietMonAn(id).subscribe(res => {
+      this.id_monan = res.id;
+      this.trangthai = res.trangthai;
       if (this.trangthai === 'đang kinh doanh') {
         const param = {
           trangthai: 'ngừng kinh doanh',
         };
-        this.monanService.updateTinhTrangMonAn(param, this.id_monan).subscribe(res => {
-          console.log(res);
+        this.monanService.updateTinhTrangMonAn(param, this.id_monan).subscribe(result => {
           if (document.getElementById('btn-tinhtrang').classList.contains('btn-danger')) {
             document.getElementById('btn-tinhtrang').classList.remove('btn-danger');
           }
@@ -64,10 +63,10 @@ export class HangHoaComponent implements OnInit {
         });
       } else {
         const param = {
-          trangthai: 'đang kinh doanh',
+          trangthai: 'đang kinh doanh'
         };
-        this.monanService.updateTinhTrangMonAn(param, this.id_monan).subscribe(res1 => {
-          console.log(res1);
+        this.monanService.updateTinhTrangMonAn(param, this.id_monan).subscribe(res => {
+          console.log(res);
           if (document.getElementById('btn-tinhtrang').classList.contains('btn-success')) {
             document.getElementById('btn-tinhtrang').classList.remove('btn-success');
           }
@@ -77,7 +76,6 @@ export class HangHoaComponent implements OnInit {
       }
     });
     this.modalDetail.hide();
-    this.loadData();
   }
   deleteMonAn(id) {
     this.monanService.getChiTietMonAn(id).subscribe(result => {

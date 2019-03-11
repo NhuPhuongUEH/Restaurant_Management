@@ -42,6 +42,22 @@ namespace SpyRestaurant.Controllers
             }).ToListAsync();
         }
 
+        [HttpGet("banhang")]
+        public async Task<ActionResult<IEnumerable<MonAn>>> GetMonAnsBanHang()
+        {
+            return await _context.MonAns.Where(x => x.trangthai == "đang kinh doanh").Select(x => new MonAn
+            {
+                Id = x.Id,
+                hinh = Models.Unit.Helper.getUrl(Request) + x.hinh,
+                gia = x.gia,
+                tenmon = x.tenmon,
+                mota = x.mota,
+                trangthai = x.trangthai,
+                LoaiMonAn = x.LoaiMonAn,
+                LoaiMonAn_ID = x.LoaiMonAn_ID
+            }).ToListAsync();
+        }
+
         // GET: api/MonAn/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MonAn>> GetMonAn(int id)

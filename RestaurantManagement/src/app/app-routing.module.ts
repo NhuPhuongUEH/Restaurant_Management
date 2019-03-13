@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'thong-ke', component: ThongKeComponent },
       { path: 'nha-cung-cap', component: NhaCungCapComponent },
       { path: 'phieu-nhap', component: PhieuNhapComponent },
-      { path: 'phieu-xuất', component: PhieuXuatComponent }
+      { path: 'phieu-xuat', component: PhieuXuatComponent }
     ]
   },
 ];

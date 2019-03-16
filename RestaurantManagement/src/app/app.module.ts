@@ -19,6 +19,9 @@ import { NhaCungCapComponent } from './dashboard/nha-cung-cap/nha-cung-cap.compo
 import { PhieuNhapComponent } from './dashboard/phieu-nhap/phieu-nhap.component';
 import { PhieuXuatComponent } from './dashboard/phieu-xuat/phieu-xuat.component';
 import { ModalModule } from 'ngx-bootstrap';
+import { ThongKeDoanhThuComponent } from './dashboard/thong-ke/thong-ke-doanh-thu/thong-ke-doanh-thu.component';
+import { ThongKeSoLuongComponent } from './dashboard/thong-ke/thong-ke-so-luong/thong-ke-so-luong.component';
+import { ThongKeTonKhoComponent } from './dashboard/thong-ke/thong-ke-ton-kho/thong-ke-ton-kho.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { ModalModule } from 'ngx-bootstrap';
     HoaDonComponent,
     NhaCungCapComponent,
     PhieuNhapComponent,
-    PhieuXuatComponent
+    PhieuXuatComponent,
+    ThongKeDoanhThuComponent,
+    ThongKeSoLuongComponent,
+    ThongKeTonKhoComponent
   ],
   imports: [
     BrowserModule,

@@ -20,7 +20,9 @@ export class ApiService {
     ban: this.baseUrl + 'ban',
     timhoadon_phucvu: this.baseUrl + 'ban/hoadon',
     tinhtranghoadon: this.baseUrl + 'hoadon/tinhtrang',
-    nhacungcap: this.baseUrl + 'nhacungcap'
+    nhacungcap: this.baseUrl + 'nhacungcap',
+    doanhthu: this.baseUrl + 'hoadon/doanhthu',
+    tongthuchi: this.baseUrl + 'hoadon/doanhthu/tongthuchi'
   };
   constructor() { }
 }

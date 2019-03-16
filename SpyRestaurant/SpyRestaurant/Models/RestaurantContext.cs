@@ -26,5 +26,6 @@ namespace SpyRestaurant.Models
         public DbSet<PhieuNhapKho> PhieuNhapKhos { get; set; }
         public DbSet<PhieuXuatKho> PhieuXuatKhos { get; set; }
         public DbSet<ThanhPhanMonAn> ThanhPhanMonAns { get; set; }
+        public DbSet<DoanhThu> DoanhThus { get; set; }
     }
 }

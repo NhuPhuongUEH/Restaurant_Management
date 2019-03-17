@@ -1,3 +1,219 @@
-<p>
-  phieu-nhap works!
-</p>
+<!--main content start-->
+<section id="main-content">
+  <section class="wrapper p-0">
+    <div class="table-agile-info p-0">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Danh sách phiếu nhập kho
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand mr-auto" href="#">Phiếu nhập kho</a>
+          <button class="btn btn-success my-2 my-sm-0 mr-3 ml-lg-auto" (click)="getAll()"><i class="fa fa-plus"></i>
+            Thêm mới</button>
+        </nav>
+        <table id="example" class="table table-striped table-bordered bg-light table-hover d-md-table table-responsive-sm"
+          style="width:100%">
+          <thead>
+            <tr>
+              <th>Mã phiếu nhập kho</th>
+              <th>Ngày lập</th>
+              <th>Nhà cung cấp</th>
+              <th>Nhân viên</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of phieunhaps" data-toggle="modal" data-target="#modal-detai" (click)="click_detail(row.id)">
+              <td>{{row.id}}</td>
+              <td>{{row.ngaylap}}</td>
+              <td>{{row.nhaCungCap.ten}}</td>
+              <td>{{row.nhanVien.tennhanvien}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- modal thêm mới phiêu nhập -->
+        <div bsModal #modalAddNew="bs-modal" class="modal fade" id="modal-add-new" tabindex="-1" role="dialog"
+          aria-labelledby="modelTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Thêm phiếu nhập</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalAddNew.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for=""><strong>Ngày lập</strong></label>
+                  <input type="date" class="form-control" [(ngModel)]="phieunhapmoi.ngaylap" name="" id="">
+                </div>
+                <div class="form-group">
+                  <label>Nhà Cung Cấp</label>
+                  <select class="form-control" [(ngModel)]="phieunhapmoi.nhaCungCap_ID">
+                    <option *ngFor="let item of nhacungcaps" value="{{item.id}}">{{item.ten}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Nhân Viên</label>
+                  <select class="form-control" [(ngModel)]="phieunhapmoi.nhanVien_ID">
+                    <option *ngFor="let item1 of nhanviens" value="{{item1.id}}">{{item1.tennhanvien}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="themmoi()">Thêm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalAddNew.hide()">Đóng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div bsModal #modaldetail="bs-modal" class="modal fade" id="modal-detai" tabindex="-1" role="dialog"
+          aria-labelledby="modelTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Chi tiết phiếu nhập</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modaldetail.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="row w-100">
+                  <div class="h3 text-primary mr-auto" *ngIf="phieunhapkho!==undefined">Phiếu nhập {{phieunhapkho.id}}</div>
+                </div>
+                <div class="row w-100">
+                  <div class="h6 mr-auto" *ngIf="phieunhapkho!==undefined">Người lập:
+                    {{(phieunhapkho.nhanVien.honhanvien) + '
+                    ' + (phieunhapkho.nhanVien.tennhanvien)}}</div>
+                  <div class="h6" *ngIf="phieunhapkho!==undefined">Ngày lập: {{phieunhapkho.ngaylap}}</div>
+                </div>
+                <div class="row w-100">
+                  <div class="h6 mr-auto" *ngIf="phieunhapkho!==undefined">Nhà cung cấp:
+                    {{phieunhapkho.nhaCungCap.ten}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+
+                  </div>
+                  <div class="col-sm-12">
+                    <table class="table table-striped table-hover table-bordered table-responsive d-lg-table">
+                      <thead>
+                        <tr>
+                          <th>Mã chi tiết phiếu</th>
+                          <th>Tên nguyên liệu</th>
+                          <th>Mã phiếu nhập kho</th>
+                          <th>Đơn giá</th>
+                          <th>Số lượng</th>
+                          <th>Đơn vị</th>
+                          <th>Thành tiền</th>
+                          <th>
+                            Hành động
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row1 of detail">
+                          <td>{{row1.id}}</td>
+                          <td>{{row1.nguyenLieu.tennguyenlieu}}</td>
+                          <td>{{row1.phieuNhapKho_ID}}</td>
+                          <td>{{(row1.gia).toLocaleString('en-GB')}}</td>
+                          <td>{{row1.soluong}}</td>
+                          <td>{{row1.donvi}}</td>
+                          <td>{{(row1.soluong * row1.gia).toLocaleString('en-GB')}}</td>
+                          <td>
+                            <a href="#"><i class="fa fa-edit text-primary"></i></a>
+                            <a href="#" class="ml-1"><i class="fa fa-trash text-danger"></i></a>
+                          </td>
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btn_close_detai" data-dismiss="modal" (click)="them(phieunhapkho.id)">Thêm
+                  nguyên liệu</button>
+                <button type="button" class="btn btn-secondary" id="btn_close_detai" data-dismiss="modal" (click)="modaldetail.hide()">Đóng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- modal thêm mới -->
+        <div bsModal #modalAddNew1="bs-modal" class="modal fade" id="modal-add-new" tabindex="-1" role="dialog"
+          aria-labelledby="modelTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Thêm nguyên liệu vào phiếu nhập kho</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalAddNew1.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Nguyên liệu</label>
+                  <select class="form-control" [(ngModel)]="chitietmoi.nguyenLieu_ID">
+                    <option *ngFor="let a of nguyenlieus" value="{{a.id}}">{{a.tennguyenlieu}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Phiếu nhập kho</label>
+                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietmoi.phieuNhapKho_ID">
+                </div>
+
+                <div class="form-group">
+                  <label>Số lượng</label>
+                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietmoi.soluong">
+                </div>
+                <div class="form-group">
+                  <label>Giá</label>
+                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietmoi.gia">
+                </div>
+                <div class="form-group">
+                  <label>Đơn vị</label>
+                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietmoi.donvi">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="themNguyenLieu()">Thêm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalAddNew1.hide()">Đóng</button>
+              </div>
+            </div>
+          </div>
+
+
+          </div>
+        </div>
+      </div>
+  </section>
+  <!-- footer -->
+  <div class="footer">
+    <div class="wthree-copyright">
+      <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+    </div>
+  </div>
+  <!-- / footer -->
+</section>
+<!--main content end-->

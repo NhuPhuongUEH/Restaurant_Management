@@ -24,14 +24,14 @@ namespace SpyRestaurant.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ChiTietPhieuNhapKho>>> GetChiTietPhieuNhapKhos()
         {
-            return await _context.ChiTietPhieuNhapKhos.Include(x => x.PhieuNhapKho).Include(x => x.NguyenLieu).ToListAsync();
+            return await _context.ChiTietPhieuNhapKhos.Include(x => x.NguyenLieu).Include(x => x.PhieuNhapKho).ToListAsync();
         }
 
         // GET: api/ChiTietPhieuNhapKho/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ChiTietPhieuNhapKho>> GetChiTietPhieuNhapKho(int id)
         {
-            var chiTietPhieuNhapKho = await _context.ChiTietPhieuNhapKhos.Where(x => x.Id == id).Include(x => x.NguyenLieu).Include(x => x.PhieuNhapKho).AsNoTracking().FirstOrDefaultAsync();
+            var chiTietPhieuNhapKho = await _context.ChiTietPhieuNhapKhos.Where(x => x.Id == id).Include(x => x.NguyenLieu).Include(x => x.PhieuNhapKho).FirstOrDefaultAsync();
 
             if (chiTietPhieuNhapKho == null)
             {
@@ -39,6 +39,12 @@ namespace SpyRestaurant.Controllers
             }
 
             return chiTietPhieuNhapKho;
+        }
+
+        [HttpGet("phieunhapkho/{idphieu}")]
+        public async Task<ActionResult<IEnumerable<ChiTietPhieuNhapKho>>> Get(int idphieu)
+        {
+            return await _context.ChiTietPhieuNhapKhos.Where(x => x.PhieuNhapKho_ID == idphieu).Include(x => x.NguyenLieu).Include(x => x.PhieuNhapKho).ToListAsync();
         }
 
         // PUT: api/ChiTietPhieuNhapKho/5
@@ -49,13 +55,15 @@ namespace SpyRestaurant.Controllers
             if (a == null)
                 return NotFound();
             a.soluong = chiTietPhieuNhapKho.soluong;
+            a.gia = chiTietPhieuNhapKho.gia;
             a.donvi = chiTietPhieuNhapKho.donvi;
-            a.PhieuNhapKho_ID = chiTietPhieuNhapKho.PhieuNhapKho_ID;
             a.NguyenLieu_ID = chiTietPhieuNhapKho.NguyenLieu_ID;
+            a.PhieuNhapKho_ID = chiTietPhieuNhapKho.PhieuNhapKho_ID;
             _context.ChiTietPhieuNhapKhos.Update(a);
             await _context.SaveChangesAsync();
             return Ok(a);
         }
+
 
         // POST: api/ChiTietPhieuNhapKho
         [HttpPost]

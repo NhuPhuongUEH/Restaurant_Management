@@ -22,7 +22,11 @@ export class ApiService {
     tinhtranghoadon: this.baseUrl + 'hoadon/tinhtrang',
     nhacungcap: this.baseUrl + 'nhacungcap',
     doanhthu: this.baseUrl + 'hoadon/doanhthu',
-    tongthuchi: this.baseUrl + 'hoadon/doanhthu/tongthuchi'
+    tongthuchi: this.baseUrl + 'hoadon/doanhthu/tongthuchi',
+    nhanvien: this.baseUrl + 'nhanvien',
+    phieunhap: this.baseUrl + 'phieunhapkho',
+    chitietphieunhapkho: this.baseUrl + 'chitietphieunhapkho',
+    nguyenlieu: this.baseUrl + 'nguyenlieu',
   };
   constructor() { }
 }

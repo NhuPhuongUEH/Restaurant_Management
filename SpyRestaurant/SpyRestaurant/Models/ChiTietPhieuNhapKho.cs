@@ -18,6 +18,9 @@ namespace SpyRestaurant.Models
         [Column("DonVi")]
         public string donvi { get; set; }
 
+        [Column("Gia")]
+        public int gia { get; set; }
+
         public int PhieuNhapKho_ID { get; set; }
 
         public int NguyenLieu_ID { get; set; }

@@ -18,6 +18,10 @@ export class PhieuNhapComponent implements OnInit {
   nguyenlieus: ListNguyenLieu;
   idphieunhapkho: number;
   chitietmoi: ChiTietPhieuNhapKho = {} as ChiTietPhieuNhapKho;
+  idnguyenlieu: number;
+  chitietphieunhapkho: ChiTietPhieuNhapKho = {} as ChiTietPhieuNhapKho;
+  @ViewChild('modalcomfirm') modalcomfirm: ModalDirective;
+  @ViewChild('modalphieu') modalphieu: ModalDirective;
   @ViewChild('modalAddNew') modalAddNew: ModalDirective;
   @ViewChild('modalAddNew1') modalAddNew1: ModalDirective;
   @ViewChild('modaldetail') modaldetail: ModalDirective;
@@ -79,7 +83,66 @@ export class PhieuNhapComponent implements OnInit {
       nguyenLieu_ID: this.chitietmoi.nguyenLieu_ID
     };
     this.phieunhapService.addChiTietPhieuNhap(param).subscribe(res1 => {
+      this.phieunhapService.getChiTietTheoPhieu(this.chitietmoi.phieuNhapKho_ID).subscribe(result => {
+        this.phieunhapService.getIdPhieuNhapKho(this.chitietmoi.phieuNhapKho_ID).subscribe(res => {
+          this.phieunhapkho = res;
+        });
+        this.idphieunhapkho = result.phieuNhapKho_ID;
+        this.detail = result;
+      });
       this.modalAddNew1.hide();
+      this.modaldetail.show();
+    });
+  }
+  save() {
+    const param = {
+      soluong: this.chitietphieunhapkho.soluong,
+      donvi: this.chitietphieunhapkho.donvi,
+      gia: this.chitietphieunhapkho.gia,
+      phieuNhapKho_ID: this.chitietphieunhapkho.phieuNhapKho_ID,
+      nguyenLieu_ID: this.chitietphieunhapkho.nguyenLieu_ID
+    };
+    this.phieunhapService.updateChiTietPhieu(this.chitietphieunhapkho.id, param).subscribe(result1 => {
+      this.phieunhapService.getChiTietTheoPhieu(this.chitietphieunhapkho.phieuNhapKho_ID).subscribe(result => {
+        this.phieunhapService.getIdPhieuNhapKho(this.chitietphieunhapkho.phieuNhapKho_ID).subscribe(res => {
+          this.phieunhapkho = res;
+        });
+        this.idphieunhapkho = result.phieuNhapKho_ID;
+        this.detail = result;
+      });
+      this.modalphieu.hide();
+      this.modaldetail.show();
+    });
+  }
+  showModal(event = null, id: number = 0) {
+    this.modaldetail.hide();
+    this.modalphieu.show();
+    if (event) {
+      event.preventDefault();
+    }
+    this.phieunhapService.getidChiTietPhieuNhap(id).subscribe(result => {
+      this.phieunhapService.getAllNguyenLieu().subscribe(result1 => {
+        this.nguyenlieus = result1;
+      });
+      this.chitietphieunhapkho = result;
+    });
+  }
+  delConfirm(event, id) {
+    event.preventDefault();
+    this.modaldetail.hide();
+    this.idnguyenlieu = id;
+    this.modalcomfirm.show();
+  }
+  delete(id) {
+    this.phieunhapService.deleteChiTietPhieuNhap(this.idnguyenlieu).subscribe(result => {
+      this.phieunhapService.getChiTietTheoPhieu(id).subscribe(result1 => {
+        this.phieunhapService.getIdPhieuNhapKho(id).subscribe(res => {
+          this.phieunhapkho = res;
+        });
+        this.idphieunhapkho = result.phieuNhapKho_ID;
+        this.detail = result1;
+      });
+      this.modalcomfirm.hide();
       this.modaldetail.show();
     });
   }

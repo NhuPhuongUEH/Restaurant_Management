@@ -140,8 +140,8 @@
                           <td>{{row1.donvi}}</td>
                           <td>{{(row1.soluong * row1.gia).toLocaleString('en-GB')}}</td>
                           <td>
-                            <a href="#"><i class="fa fa-edit text-primary"></i></a>
-                            <a href="#" class="ml-1"><i class="fa fa-trash text-danger"></i></a>
+                            <a href="#" (click)="showModal($event, row1.id)"><i class="fa fa-edit text-primary"></i></a>
+                            <a href="#" (click)="delConfirm($event, row1.id)" class="ml-1"><i class="fa fa-trash text-danger"></i></a>
                           </td>
                         </tr>
 
@@ -160,7 +160,7 @@
           </div>
         </div>
 
-        <!-- modal thêm mới -->
+        <!-- modal thêm mới nguyen lieu vao chi tiet phieu-->
         <div bsModal #modalAddNew1="bs-modal" class="modal fade" id="modal-add-new" tabindex="-1" role="dialog"
           aria-labelledby="modelTitleId" aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
@@ -202,11 +202,73 @@
               </div>
             </div>
           </div>
+        </div>
 
+        <!-- modal sua chi tiet nguyen lieu -->
+        <div bsModal #modalphieu="bs-modal" class="modal fade" id="modal-add" tabindex="-1" role="dialog"
+          aria-labelledby="modelTitleId" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Sửa nguyên liệu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalphieu.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Nguyên liệu</label>
+                  <select class="form-control" [(ngModel)]="chitietphieunhapkho.nguyenLieu_ID">
+                    <option *ngFor="let b of nguyenlieus" value="{{b.id}}">{{b.tennguyenlieu}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Phiếu nhập kho</label>
+                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.phieuNhapKho_ID">
+                </div>
 
+                <div class="form-group">
+                  <label>Số lượng</label>
+                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.soluong">
+                </div>
+                <div class="form-group">
+                  <label>Giá</label>
+                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.gia">
+                </div>
+                <div class="form-group">
+                  <label>Đơn vị</label>
+                  <input type="text" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.donvi">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="save()">Cập nhật</button>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!--Madal xác nhận xóa-->
+        <div bsModal #modalcomfirm="bs-modal" class="modal fade" id="modelId" tabindex="-1" role="dialog"
+          aria-labelledby="modelTitleId" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="close" (click)="modalcomfirm.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modalcomfirm.hide()">Close</button>
+                <button type="button" class="btn btn-primary" (click)="delete(phieunhapkho.id)">Xác nhận</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
+    </div>
   </section>
   <!-- footer -->
   <div class="footer">

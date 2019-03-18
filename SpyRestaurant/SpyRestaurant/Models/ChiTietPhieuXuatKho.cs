@@ -16,7 +16,7 @@ namespace SpyRestaurant.Models
         public int soluong { get; set; }
 
         [Column("DonVi")]
-        public int donvi { get; set; }
+        public string donvi { get; set; }
 
         [Column("Gia")]
         public double gia { get; set; }

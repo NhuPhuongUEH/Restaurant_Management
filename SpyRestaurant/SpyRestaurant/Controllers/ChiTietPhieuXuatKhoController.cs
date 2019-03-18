@@ -31,7 +31,7 @@ namespace SpyRestaurant.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ChiTietPhieuXuatKho>> GetChiTietPhieuXuatKho(int id)
         {
-            var chiTietPhieuXuatKho = await _context.ChiTietPhieuXuatKhos.FindAsync(id);
+            var chiTietPhieuXuatKho = await _context.ChiTietPhieuXuatKhos.Where(x => x.Id == id).Include(x => x.PhieuXuatKho).Include(x => x.NguyenLieu).FirstOrDefaultAsync();
 
             if (chiTietPhieuXuatKho == null)
             {
@@ -39,6 +39,12 @@ namespace SpyRestaurant.Controllers
             }
 
             return chiTietPhieuXuatKho;
+        }
+
+        [HttpGet("phieuxuatkho/{idphieu}")]
+        public async Task<ActionResult<IEnumerable<ChiTietPhieuXuatKho>>> Get(int idphieu)
+        {
+            return await _context.ChiTietPhieuXuatKhos.Where(x => x.PhieuXuatKho_ID == idphieu).Include(x => x.NguyenLieu).Include(x => x.PhieuXuatKho).ToListAsync();
         }
 
         // PUT: api/ChiTietPhieuXuatKho/5

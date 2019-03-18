@@ -83,4 +83,13 @@ export class PhieuNhapKhoService {
   public addChiTietPhieuNhap(param): Observable<ChiTietPhieuNhapKho> {
     return this.http.post<ChiTietPhieuNhapKho>(this.api.apiUrl.chitietphieunhapkho, param);
   }
+  public updateChiTietPhieu(id, param): Observable<ChiTietPhieuNhapKho> {
+    return this.http.put<ChiTietPhieuNhapKho>(this.api.apiUrl.chitietphieunhapkho + '/' + id, param);
+  }
+  public deleteChiTietPhieuNhap(id): Observable<ChiTietPhieuNhapKho> {
+    return this.http.delete<ChiTietPhieuNhapKho>(this.api.apiUrl.chitietphieunhapkho + '/' + id);
+  }
+  public getidChiTietPhieuNhap(id): Observable<ChiTietPhieuNhapKho> {
+    return this.http.get<ChiTietPhieuNhapKho>(this.api.apiUrl.chitietphieunhapkho + '/' + id);
+  }
 }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpyRestaurant.Models;
+using SpyRestaurant.Models.Respone;
 using SpyRestaurant.Models.Resquest;
 
 namespace SpyRestaurant.Controllers
@@ -26,6 +28,18 @@ namespace SpyRestaurant.Controllers
         public async Task<ActionResult<IEnumerable<ChiTietHoaDon>>> GetChiTietHoaDons()
         {
             return await _context.ChiTietHoaDons.Include(x => x.MonAn).Include(x => x.HoaDon).ToListAsync();
+        }
+
+        [HttpPost("thongkesoluong")]
+        public async Task<ActionResult<BaseRespone>> GetSoluongBan(DoanhthuResquest resquest)
+        {
+            await _context.Database.ExecuteSqlCommandAsync("exec thong_ke_so_luong_ban @from,@to", new SqlParameter("@from", resquest.dateFrom.ToShortDateString()), new SqlParameter("@to", resquest.dateTo.ToShortDateString()));
+            var data = await _context.ThongKeSoLuongs.GroupBy(x => x.ten_mon).Select(x => new ThongKeSoLuong
+            {
+                ten_mon = x.Key,
+                so_luong = x.Sum(t => t.so_luong)
+            }).ToListAsync();
+            return new BaseRespone(data);
         }
 
         //kiem tra mon da goi mon do chua

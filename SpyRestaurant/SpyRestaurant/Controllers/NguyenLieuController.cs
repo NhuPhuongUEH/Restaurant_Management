@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpyRestaurant.Models;
+using SpyRestaurant.Models.Respone;
+using SpyRestaurant.Models.Resquest;
 
 namespace SpyRestaurant.Controllers
 {
@@ -26,6 +29,20 @@ namespace SpyRestaurant.Controllers
         {
             return await _context.NguyenLieus.ToListAsync();
         }
+
+        [HttpPost("thongketonkho")]
+        public async Task<ActionResult<BaseRespone>> GetTonKho(DoanhthuResquest resquest)
+        {
+            if (resquest.idnguyenlieu == 0)
+            {
+                await _context.Database.ExecuteSqlCommandAsync("exec thong_ke_ton_kho @from,@to", new SqlParameter("@from", resquest.dateFrom.ToShortDateString()), new SqlParameter("@to", resquest.dateTo.ToShortDateString()));
+                return new BaseRespone(await _context.ThongKeTonKhos.ToListAsync());
+            }
+            await _context.Database.ExecuteSqlCommandAsync("exec thong_ke_ton_kho @from,@to", new SqlParameter("@from", resquest.dateFrom.ToShortDateString()), new SqlParameter("@to", resquest.dateTo.ToShortDateString()));
+            var a = await _context.ThongKeTonKhos.Where(x => x.id_nguyenlieu == resquest.idnguyenlieu).ToListAsync();
+            return new BaseRespone(a);
+        }
+
 
         [HttpGet("tim")]
         public async Task<ActionResult<IEnumerable<NguyenLieu>>> TimNguyenLieu([FromQuery] string q)

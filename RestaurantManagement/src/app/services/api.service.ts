@@ -30,7 +30,8 @@ export class ApiService {
     phieuxuat: this.baseUrl + 'phieuxuatkho',
     chitietphieuxuatkho: this.baseUrl + 'chitietphieuxuatkho',
     thongketonkho: this.baseUrl + 'nguyenlieu/thongketonkho',
-    thongkesoluong: this.baseUrl + 'chitiethoadon/thongkesoluong'
+    thongkesoluong: this.baseUrl + 'chitiethoadon/thongkesoluong',
+    thongkesudung: this.baseUrl + 'nguyenlieu/thongkesudung'
   };
   constructor() { }
 }

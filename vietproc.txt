@@ -158,3 +158,41 @@ select tpma.NguyenLieu_ID as nguyenlieusudung, hd.Ngay,sum(tpma.SoLuong*cthd.SoL
 select ctp.NguyenLieu_ID as nguyenlieuxuat, px.NgayXuat,sum(ctp.SoLuongXuat) as soluongxuat from PHIEUXUATKHO px, CHITIETPHIEUXUATKHO ctp
 	where px.PhieuXuatKho_ID=ctp.PhieuXuatKho_ID
 	group by ctp.NguyenLieu_ID, px.NgayXuat
+
+
+create view tbl_soluongsudung as
+select tpma.NguyenLieu_ID as nguyenlieusudung, convert(date, hd.Ngay) as ngay,sum(tpma.SoLuong*cthd.SoLuong) as soluongsudung from THANHPHANMONAN tpma,CHITIETHOADON cthd,HOADON hd
+	where tpma.MonAn_ID=cthd.MonAn_ID and hd.HoaDon_ID=cthd.HoaDon_ID
+	group by tpma.NguyenLieu_ID, convert(date, hd.Ngay)
+
+create view tbl_soluongxuat as
+select ctp.NguyenLieu_ID as nguyenlieuxuat, convert(date, px.NgayXuat) as ngayxuat,sum(ctp.SoLuongXuat) as soluongxuat from PHIEUXUATKHO px, CHITIETPHIEUXUATKHO ctp
+	where px.PhieuXuatKho_ID=ctp.PhieuXuatKho_ID
+	group by ctp.NguyenLieu_ID, convert(date, px.NgayXuat)
+
+create procedure nglieudung2 @ngaydat date, @id_nguyenlieu int, @soluongsudung float output
+as
+set @soluongsudung = (select t.soluongsudung
+						from tbl_soluongsudung t where CONVERT(date, t.ngay) = CONVERT(date, @ngaydat) and t.nguyenlieusudung = @id_nguyenlieu)
+
+
+create procedure ngxuat @ngayxuat date, @id_nguyenlieu int, @soluongxuat float output
+as 
+set @soluongxuat = (select t.soluongxuat
+						from tbl_soluongxuat t where CONVERT(date, t.ngayxuat) = CONVERT(date, @ngayxuat) and t.nguyenlieuxuat = @id_nguyenlieu)
+
+
+create procedure thongkesudung5 @dateFrom date, @dateTo date, @id_nguyenlieu int
+as
+delete from tmp_su_dung
+while CONVERT(date, @dateFrom) <= CONVERT(date, @dateTo)
+begin
+	declare @soluongsudung float
+	declare @soluongxuat float
+	exec nglieudung2 @dateFrom, @id_nguyenlieu, @soluongsudung output
+	exec ngxuat @dateFrom, @id_nguyenlieu, @soluongxuat output
+	insert into tmp_su_dung values(@id_nguyenlieu, @dateFrom, @soluongsudung, @soluongxuat)
+	set @dateFrom=DATEADD(DAY, 1, @dateFrom)
+end
+exec thongkesudung5 '2019-03-08','2019-03-17', 14
+select * from tmp_su_dung

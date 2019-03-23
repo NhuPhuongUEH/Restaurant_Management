@@ -52,6 +52,17 @@ export interface SoLuongRespone {
   message: string;
   data: SoLuong[];
 }
+export interface SuDung {
+  ngay: Date;
+  id_nguyenlieu: number;
+  soluongsudung: number;
+  soluongxuat: number;
+}
+export interface SuDungRespone {
+  errorCode: number;
+  message: string;
+  data: SuDung[];
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -72,5 +83,8 @@ export class ThongKeService {
   }
   public getSoLuong(param): Observable<SoLuongRespone> {
     return this.http.post<SoLuongRespone>(this.api.apiUrl.thongkesoluong, param);
+  }
+  public getSuDung(param): Observable<SuDungRespone> {
+    return this.http.post<SuDungRespone>(this.api.apiUrl.thongkesudung, param);
   }
 }

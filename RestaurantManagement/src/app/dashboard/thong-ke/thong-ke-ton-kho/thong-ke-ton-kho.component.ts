@@ -79,7 +79,7 @@ export class ThongKeTonKhoComponent implements OnInit {
               fontFamily: `tahoma`, /// chỉnh font cho chữ thống dc đúng
               fontSize: '16px'
             },
-            type: 'column',
+            type: 'line',
             plotBorderWidth: 1,
           },
           title: {

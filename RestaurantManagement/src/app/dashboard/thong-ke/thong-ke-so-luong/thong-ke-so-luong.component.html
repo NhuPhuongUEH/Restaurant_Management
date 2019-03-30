@@ -34,7 +34,7 @@
           </thead>
           <tbody>
 
-            <tr *ngFor="let row of SoLuongs; let i=index">
+            <tr *ngFor="let row of SoLuongs | paginate: { itemsPerPage: 10, currentPage: page }; let i=index">
               <td>{{i+1}}</td>
               <td>{{row.ten_mon}}</td>
               <td>{{row.so_luong}}</td>
@@ -42,10 +42,9 @@
 
           </tbody>
         </table>
-        <!-- <div class="text-center pb-1">
-          <pagination-controls class="text-center" previousLabel="Trang trước"
-nextLabel="Trang sau" (pageChange)="page = $event"></pagination-controls>
-      </div> -->
+        <div class="text-center pb-1">
+          <pagination-controls class="text-center" previousLabel="Trang trước" nextLabel="Trang sau" (pageChange)="page = $event"></pagination-controls>
+        </div>
 
       </div>
     </div>

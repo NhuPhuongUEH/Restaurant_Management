@@ -46,7 +46,7 @@
           </thead>
           <tbody>
 
-            <tr *ngFor="let row of TonKhos; let i=index">
+            <tr *ngFor="let row of TonKhos | paginate: { itemsPerPage: 10, currentPage: page }; let i=index">
               <td>{{i+1}}</td>
               <td>{{row.id_nguyenlieu}}</td>
               <td>{{row.tennguyenlieu}}</td>
@@ -58,10 +58,9 @@
 
           </tbody>
         </table>
-        <!-- <div class="text-center pb-1">
-          <pagination-controls class="text-center" previousLabel="Trang trước"
-nextLabel="Trang sau" (pageChange)="page = $event"></pagination-controls>
-      </div> -->
+        <div class="text-center pb-1">
+          <pagination-controls class="text-center" previousLabel="Trang trước" nextLabel="Trang sau" (pageChange)="page = $event"></pagination-controls>
+        </div>
 
       <div class="text-center">
         <div class="my-3 d-inline-block  text-center">

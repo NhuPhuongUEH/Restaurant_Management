@@ -24,7 +24,7 @@ export class PhieuNhapComponent implements OnInit {
   @ViewChild('modalphieu') modalphieu: ModalDirective;
   @ViewChild('modalAddNew') modalAddNew: ModalDirective;
   @ViewChild('modalAddNew1') modalAddNew1: ModalDirective;
-  @ViewChild('modaldetail') modaldetail: ModalDirective;
+  @ViewChild('modaldetail') modaldetail: ModalDirective;// cho do t an cai detail di van ko dc
   constructor(private titleService: Title, private phieunhapService: PhieuNhapKhoService) { }
 
   ngOnInit() {
@@ -64,6 +64,7 @@ export class PhieuNhapComponent implements OnInit {
       });
       this.idphieunhapkho = result.phieuNhapKho_ID;
       this.detail = result;
+      this.modaldetail.show();
     });
   }
   them(id) {
@@ -115,8 +116,6 @@ export class PhieuNhapComponent implements OnInit {
     });
   }
   showModal(event = null, id: number = 0) {
-    this.modaldetail.hide();
-    this.modalphieu.show();
     if (event) {
       event.preventDefault();
     }
@@ -125,6 +124,8 @@ export class PhieuNhapComponent implements OnInit {
         this.nguyenlieus = result1;
       });
       this.chitietphieunhapkho = result;
+      this.modaldetail.hide();
+      this.modalphieu.show();
     });
   }
   delConfirm(event, id) {

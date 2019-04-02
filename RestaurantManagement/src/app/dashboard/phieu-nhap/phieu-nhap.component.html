@@ -22,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of phieunhaps | paginate: { itemsPerPage: 10, currentPage: page }" data-toggle="modal" data-target="#modal-detai" (click)="click_detail(row.id)">
+            <tr *ngFor="let row of phieunhaps | paginate: { itemsPerPage: 10, currentPage: page }" (click)="click_detail(row.id)">
               <td>{{row.id}}</td>
               <td>{{row.ngaylap}}</td>
               <td>{{row.nhaCungCap.ten}}</td>
@@ -50,7 +50,7 @@
         </nav> -->
         <div class="text-center pb-1">
           <pagination-controls class="text-center" previousLabel="Trang trước" nextLabel="Trang sau" (pageChange)="page = $event"></pagination-controls>
-      </div>
+        </div>
 
         <!-- modal thêm mới phiêu nhập -->
         <div bsModal #modalAddNew="bs-modal" class="modal fade" id="modal-add-new" tabindex="-1" role="dialog"
@@ -95,7 +95,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Chi tiết phiếu nhập</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modaldetail.hide()">
+                <button type="button" class="close" (click)="modaldetail.hide()">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -155,9 +155,9 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="btn_close_detai" data-dismiss="modal" (click)="them(phieunhapkho.id)">Thêm
+                <button type="button" class="btn btn-success" id="btn_close_detai" (click)="them(phieunhapkho.id)">Thêm
                   nguyên liệu</button>
-                <button type="button" class="btn btn-secondary" id="btn_close_detai" data-dismiss="modal" (click)="modaldetail.hide()">Đóng</button>
+                <button type="button" class="btn btn-secondary" id="btn_close_detai" (click)="modaldetail.hide()">Đóng</button>
               </div>
             </div>
           </div>
@@ -221,26 +221,26 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Nguyên liệu</label>
-                  <select class="form-control" [(ngModel)]="chitietphieunhapkho.nguyenLieu_ID">
+                  <select class="form-control" [(ngModel)]="chitietphieunhapkho.nguyenLieu_ID" name="drop">
                     <option *ngFor="let b of nguyenlieus" value="{{b.id}}">{{b.tennguyenlieu}}</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Phiếu nhập kho</label>
-                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.phieuNhapKho_ID">
+                  <input type="number" class="form-control" name="ten" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.phieuNhapKho_ID">
                 </div>
 
                 <div class="form-group">
                   <label>Số lượng</label>
-                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.soluong">
+                  <input type="number" class="form-control" name="soluong" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.soluong">
                 </div>
                 <div class="form-group">
                   <label>Giá</label>
-                  <input type="number" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.gia">
+                  <input type="number" class="form-control" name="gia" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.gia">
                 </div>
                 <div class="form-group">
                   <label>Đơn vị</label>
-                  <input type="text" class="form-control" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.donvi">
+                  <input type="text" class="form-control" name="donvi" placeholder="Nhập tên sản phẩm mới" [(ngModel)]="chitietphieunhapkho.donvi">
                 </div>
               </div>
               <div class="modal-footer">

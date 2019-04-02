@@ -65,24 +65,23 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            
               <div class="form-group">
                 <label for="formGroupExampleInput1">Tên công ty</label>
                 <input type="text" class="form-control" name="ten" [(ngModel)]="nhacungcap.ten" id="formGroupExampleInput1">
               </div>
-            </form>
-            <form>
+            
+            
               <div class="form-group">
                 <label for="formGroupExampleInput">Địa chỉ</label>
                 <input type="text" class="form-control" name="diachi" [(ngModel)]="nhacungcap.diachi" id="formGroupExampleInput">
               </div>
-            </form>
-            <form>
+            
               <div class="form-group">
                 <label for="formGroupExampleInput2">Số điện thoại</label>
                 <input type="text" class="form-control" name="sdt" [(ngModel)]="nhacungcap.sodienthoai" id="formGroupExampleInput2" placeholder="Example input">
               </div>
-            </form>
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-success" (click)="save()">{{ (nhacungcap.id === undefined || nhacungcap.id === 0) ? 'Thêm' : 'Cập nhật' }}</button>

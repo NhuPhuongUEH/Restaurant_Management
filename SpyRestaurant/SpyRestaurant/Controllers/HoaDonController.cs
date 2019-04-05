@@ -41,7 +41,7 @@ namespace SpyRestaurant.Controllers
                 NhanVien = x.NhanVien,
                 KhachHang = x.KhachHang,
                 tongtien = _context.ChiTietHoaDons.Where(t => t.HoaDon_ID == x.Id).Sum(t => t.soluong * t.dongia)
-            }).ToListAsync();
+            }).OrderByDescending(x => x.ngay).ToListAsync();
         }
 
         [HttpPost("doanhthu")]

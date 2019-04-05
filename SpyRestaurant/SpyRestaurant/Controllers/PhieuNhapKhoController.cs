@@ -24,7 +24,7 @@ namespace SpyRestaurant.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PhieuNhapKho>>> GetPhieuNhapKhos()
         {
-            return await _context.PhieuNhapKhos.Include(x => x.NhaCungCap).Include(x => x.NhanVien).ToListAsync();
+            return await _context.PhieuNhapKhos.Include(x => x.NhaCungCap).Include(x => x.NhanVien).OrderByDescending(x => x.ngaylap).ToListAsync();
         }
 
         // GET: api/PhieuNhapKho/5

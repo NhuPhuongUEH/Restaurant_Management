@@ -43,6 +43,19 @@ namespace SpyRestaurant.Controllers
             return new BaseRespone(a);
         }
 
+        [HttpPost("thongketonkho1")]
+        public async Task<ActionResult<BaseRespone>> GetTonKho1(DoanhthuResquest resquest)
+        {
+            if (resquest.idnguyenlieu == 0)
+            {
+                await _context.Database.ExecuteSqlCommandAsync("exec thong_ke_ton_kho1 @from,@to", new SqlParameter("@from", resquest.dateFrom.ToShortDateString()), new SqlParameter("@to", resquest.dateTo.ToShortDateString()));
+                return new BaseRespone(await _context.ThongKeTonKhos.ToListAsync());
+            }
+            await _context.Database.ExecuteSqlCommandAsync("exec thong_ke_ton_kho1 @from,@to", new SqlParameter("@from", resquest.dateFrom.ToShortDateString()), new SqlParameter("@to", resquest.dateTo.ToShortDateString()));
+            var a = await _context.ThongKeTonKhos.Where(x => x.id_nguyenlieu == resquest.idnguyenlieu).ToListAsync();
+            return new BaseRespone(a);
+        }
+
         [HttpPost("thongkesudung")]
         public async Task<ActionResult<BaseRespone>> GetTonSuDung(DoanhthuResquest resquest)
         {

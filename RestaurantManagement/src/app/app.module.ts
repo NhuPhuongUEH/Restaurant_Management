@@ -23,6 +23,7 @@ import { ThongKeDoanhThuComponent } from './dashboard/thong-ke/thong-ke-doanh-th
 import { ThongKeSoLuongComponent } from './dashboard/thong-ke/thong-ke-so-luong/thong-ke-so-luong.component';
 import { ThongKeTonKhoComponent } from './dashboard/thong-ke/thong-ke-ton-kho/thong-ke-ton-kho.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ThongKeTonKho1Component } from './dashboard/thong-ke/thong-ke-ton-kho1/thong-ke-ton-kho1.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PhieuXuatComponent,
     ThongKeDoanhThuComponent,
     ThongKeSoLuongComponent,
-    ThongKeTonKhoComponent
+    ThongKeTonKhoComponent,
+    ThongKeTonKho1Component
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { PhieuXuatComponent } from './dashboard/phieu-xuat/phieu-xuat.component'
 import { ThongKeDoanhThuComponent } from './dashboard/thong-ke/thong-ke-doanh-thu/thong-ke-doanh-thu.component';
 import { ThongKeSoLuongComponent } from './dashboard/thong-ke/thong-ke-so-luong/thong-ke-so-luong.component';
 import { ThongKeTonKhoComponent } from './dashboard/thong-ke/thong-ke-ton-kho/thong-ke-ton-kho.component';
+import { ThongKeTonKho1Component } from './dashboard/thong-ke/thong-ke-ton-kho1/thong-ke-ton-kho1.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: 'phieu-xuat', component: PhieuXuatComponent },
       { path: 'thong-ke-doanh-thu', component: ThongKeDoanhThuComponent},
       { path: 'thong-ke-so-luong', component: ThongKeSoLuongComponent},
-      { path: 'thong-ke-ton-kho', component: ThongKeTonKhoComponent}
+      { path: 'thong-ke-ton-kho', component: ThongKeTonKhoComponent},
+      { path: 'thong-ke-ton-kho1', component: ThongKeTonKho1Component}
     ]
   },
 ];

@@ -71,6 +71,9 @@ export class PhieuNhapKhoService {
   public addPhieuNhap(param): Observable<PhieuNhapKho> {
     return this.http.post<PhieuNhapKho>(this.api.apiUrl.phieunhap, param);
   }
+  public getAllNguyenLieuNhap(): Observable<ListNguyenLieu> {
+    return this.http.get<ListNguyenLieu>(this.api.apiUrl.nguyenlieunhap);
+  }
   public getAllNguyenLieu(): Observable<ListNguyenLieu> {
     return this.http.get<ListNguyenLieu>(this.api.apiUrl.nguyenlieu);
   }

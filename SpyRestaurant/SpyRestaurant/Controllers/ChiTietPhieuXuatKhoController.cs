@@ -51,36 +51,25 @@ namespace SpyRestaurant.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutChiTietPhieuXuatKho(int id, ChiTietPhieuXuatKho chiTietPhieuXuatKho)
         {
-            if (id != chiTietPhieuXuatKho.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(chiTietPhieuXuatKho).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ChiTietPhieuXuatKhoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var a = await _context.ChiTietPhieuXuatKhos.FindAsync(id);
+            if (a == null)
+                return NotFound();
+            a.soluong = chiTietPhieuXuatKho.soluong;
+            //a.gia = chiTietPhieuXuatKho.gia;
+            a.donvi = chiTietPhieuXuatKho.donvi;
+            a.NguyenLieu_ID = chiTietPhieuXuatKho.NguyenLieu_ID;
+            a.PhieuXuatKho_ID = chiTietPhieuXuatKho.PhieuXuatKho_ID;
+            _context.ChiTietPhieuXuatKhos.Update(a);
+            await _context.SaveChangesAsync();
+            return Ok(a);
         }
 
         // POST: api/ChiTietPhieuXuatKho
         [HttpPost]
         public async Task<ActionResult<ChiTietPhieuXuatKho>> PostChiTietPhieuXuatKho(ChiTietPhieuXuatKho chiTietPhieuXuatKho)
         {
+            NguyenLieu nl = await _context.NguyenLieus.SingleAsync(x => x.Id == chiTietPhieuXuatKho.NguyenLieu_ID);
+            nl.soluong -= chiTietPhieuXuatKho.soluong;
             _context.ChiTietPhieuXuatKhos.Add(chiTietPhieuXuatKho);
             await _context.SaveChangesAsync();
 
@@ -96,7 +85,8 @@ namespace SpyRestaurant.Controllers
             {
                 return NotFound();
             }
-
+            NguyenLieu nl = await _context.NguyenLieus.SingleAsync(x => x.Id == chiTietPhieuXuatKho.NguyenLieu_ID);
+            nl.soluong += chiTietPhieuXuatKho.soluong;
             _context.ChiTietPhieuXuatKhos.Remove(chiTietPhieuXuatKho);
             await _context.SaveChangesAsync();
 

@@ -30,6 +30,18 @@ namespace SpyRestaurant.Controllers
             return await _context.NguyenLieus.ToListAsync();
         }
 
+        [HttpGet("nguyenlieunhap")]
+        public async Task<ActionResult<IEnumerable<NguyenLieu>>> GetNguyenLieusNhap()
+        {
+            return await _context.NguyenLieus.Where(x => x.soluong <= 5).ToListAsync();
+        }
+
+        [HttpGet("nguyenlieuxuat")]
+        public async Task<ActionResult<IEnumerable<NguyenLieu>>> GetNguyenLieusXuat()
+        {
+            return await _context.NguyenLieus.Where(x => x.soluong > 5).ToListAsync();
+        }
+
         [HttpPost("thongketonkho")]
         public async Task<ActionResult<BaseRespone>> GetTonKho(DoanhthuResquest resquest)
         {

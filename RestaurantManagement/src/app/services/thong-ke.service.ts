@@ -81,6 +81,9 @@ export class ThongKeService {
   public getThongKeTonKho1(param): Observable<TonKhoRespone> {
     return this.http.post<TonKhoRespone>(this.api.apiUrl.thongketonkho1, param);
   }
+  public getAllNguyenLieuNhap(): Observable<ListNguyenLieu> {
+    return this.http.get<ListNguyenLieu>(this.api.apiUrl.nguyenlieunhap);
+  }
   public getAllNguyenLieu(): Observable<ListNguyenLieu> {
     return this.http.get<ListNguyenLieu>(this.api.apiUrl.nguyenlieu);
   }

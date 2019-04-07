@@ -69,6 +69,8 @@ namespace SpyRestaurant.Controllers
         [HttpPost]
         public async Task<ActionResult<ChiTietPhieuNhapKho>> PostChiTietPhieuNhapKho(ChiTietPhieuNhapKho chiTietPhieuNhapKho)
         {
+            NguyenLieu nl = await _context.NguyenLieus.SingleAsync(x => x.Id == chiTietPhieuNhapKho.NguyenLieu_ID);
+            nl.soluong += chiTietPhieuNhapKho.soluong;
             _context.ChiTietPhieuNhapKhos.Add(chiTietPhieuNhapKho);
             await _context.SaveChangesAsync();
 
@@ -84,7 +86,8 @@ namespace SpyRestaurant.Controllers
             {
                 return NotFound();
             }
-
+            NguyenLieu nl = await _context.NguyenLieus.SingleAsync(x => x.Id == chiTietPhieuNhapKho.NguyenLieu_ID);
+            nl.soluong -= chiTietPhieuNhapKho.soluong;
             _context.ChiTietPhieuNhapKhos.Remove(chiTietPhieuNhapKho);
             await _context.SaveChangesAsync();
 

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface PhieuXuatKho {
   id: number;
   ngayxuat: Date;
+  nhanVien_ID: number;
   nhanVien: NhanVien;
 }
 export interface NhanVien {
@@ -56,13 +57,28 @@ export class PhieuXuatKhoService {
   public getAllNhanVien(): Observable<ListNhanVien> {
     return this.http.get<ListNhanVien>(this.api.apiUrl.nhanvien);
   }
-  public getAllNguyenLieu(): Observable<ListNguyenLieu> {
-    return this.http.get<ListNguyenLieu>(this.api.apiUrl.nguyenlieu);
+  public getAllNguyenLieuXuat(): Observable<ListNguyenLieu> {
+    return this.http.get<ListNguyenLieu>(this.api.apiUrl.nguyenlieuxuat);
   }
   public getChiTietTheoPhieu(id): Observable<ChiTietPhieuXuatKho> {
     return this.http.get<ChiTietPhieuXuatKho>(this.api.apiUrl.chitietphieuxuatkho + '/phieuxuatkho/' + id);
   }
   public getIdPhieuXuatKho(id): Observable<PhieuXuatKho> {
     return this.http.get<PhieuXuatKho>(this.api.apiUrl.phieuxuat + '/' + id);
+  }
+  public addPhieuXuat(param): Observable<PhieuXuatKho> {
+    return this.http.post<PhieuXuatKho>(this.api.apiUrl.phieuxuat, param);
+  }
+  public addChiTietPhieuXuat(param): Observable<ChiTietPhieuXuatKho> {
+    return this.http.post<ChiTietPhieuXuatKho>(this.api.apiUrl.chitietphieuxuatkho, param);
+  }
+  public updateChiTietPhieu(id, param): Observable<ChiTietPhieuXuatKho> {
+    return this.http.put<ChiTietPhieuXuatKho>(this.api.apiUrl.chitietphieuxuatkho + '/' + id, param);
+  }
+  public deleteChiTietPhieuXuat(id): Observable<ChiTietPhieuXuatKho> {
+    return this.http.delete<ChiTietPhieuXuatKho>(this.api.apiUrl.chitietphieuxuatkho + '/' + id);
+  }
+  public getidChiTietPhieuNhap(id): Observable<ChiTietPhieuXuatKho> {
+    return this.http.get<ChiTietPhieuXuatKho>(this.api.apiUrl.chitietphieuxuatkho + '/' + id);
   }
 }

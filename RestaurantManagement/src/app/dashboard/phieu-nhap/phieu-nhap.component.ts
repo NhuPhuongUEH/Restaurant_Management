@@ -70,7 +70,7 @@ export class PhieuNhapComponent implements OnInit {
   them(id) {
     this.modaldetail.hide();
     this.modalAddNew1.show();
-    this.phieunhapService.getAllNguyenLieu().subscribe(result => {
+    this.phieunhapService.getAllNguyenLieuNhap().subscribe(result => {
       this.nguyenlieus = result;
     });
     this.chitietmoi.phieuNhapKho_ID = id;
